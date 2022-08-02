@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    main {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* border: black solid; */
+    }
+
+    .card-loginRegist {
+        display: flex;
+        flex-direction: column;
+        border: black solid;
+        width: fit-content;
+        height: fit-content;
+        padding: 30px;
+        border-radius: 15px;
+        background-color: white;
+        z-index: 1;
+    }
+
+    .login {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        height: 180px;
+    }
+
+    .login * {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .login a {
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        background-color: springgreen;
+        border-radius: 2px;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    #btnLogout {
+        display: flex;
+        padding: 10px 30px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        background-color: springgreen;
+        border-radius: 5px;
+    }
+
+    .register {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .abc {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        text-align: center;
+        width: 300px;
+        border-radius: 5px;
+        border: black solid;
+        position: absolute;
+        right: 10vh;
+    }
+
+    .b {
+        display: flex;
+        flex-direction: row;
+        /* text-align: center; */
+        /* border: black solid; */
+        justify-content: space-evenly;
+    }
+</style>
+
+<body>
+    <main>
+        <div class="card-loginRegist">
+            <div class="login">
+                <input type="text" placeholder="Username" id="inputName">
+                <input type="password" placeholder="Password" id="inputPass">
+                <a href="#" type="button" id="btnLogin" onclick="login()">Login</a>
+                <a href="#" type="button" id="btnRegister" onclick="regist()">Register</a>
+            </div>
+            <div class="register">
+                <p><a href="#" onclick="btnShowReg()" id="registerTxt">Daftar Akun</a></p>
+                <p><a href="#" onclick="btnShowLogin()" id="loginTxt">Sudah Punya Akun ? </a></p>
+                <p><a href="#" onclick="reset()" id="reset">Reset Akun</a></p>
+            </div>
+            <div class="content">
+                <h1 id="foruser"></h1>
+                <h1 id="forkanglampu"> Halo Kang Lampu !</h1>
+                <h1 id="forkangtoggle"> Halo kang Toggle !</h1>
+                <h1 id="admin"> Halo kang ! semangat terus !</h1>
+            </div>
+            <a href="#" type="button" id="btnLogout" onclick="logout()">Logout</a>
+        </div>
+        <div class="abc">
+            <h1>Daftar User</h1>
+            <div class="b">
+                <div>
+                    <h4>Username</h4>
+                    <p>admin</p>
+                    <p>kanglampu</p>
+                    <p>kangtoggle</p>
+                    <p id="idini"></p>
+                </div>
+                <div>
+                    <h4>Password</h4>
+                    <p>123</p>
+                    <p>123</p>
+                    <p>123</p>
+                    <p id="passwordini"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    let inputname = document.getElementById("inputName")
+    let inputpass = document.getElementById("inputPass")
+    let btnLogin = document.getElementById("btnLogin")
+    let btnRegister = document.getElementById("btnRegister")
+    let txtRegist = document.getElementById("registerTxt")
+    let txtLogin = document.getElementById("loginTxt")
+    let btnLogout = document.getElementById('btnLogout')
+
+    let a = document.getElementById('foruser')
+    let b = document.getElementById('forkanglampu')
+    let c = document.getElementById('forkangtoggle')
+    let d = document.getElementById('admin')
+
+    let loginstyl = document.querySelector('.login')
+    let registerstyl = document.querySelector('.register')
+
+    let txtReset = document.getElementById('reset')
+    let list = document.querySelector('.abc')
+    let usernameList = document.getElementById("idini")
+    let passwordlist = document.getElementById("passwordini")
+
+    a.style.display = "none"
+    b.style.display = "none"
+    c.style.display = "none"
+    d.style.display = "none"
+
+    btnRegister.style.display = "none"
+    txtLogin.style.display = "none"
+
+    btnLogout.style.display = "none"
+    localStorage.setItem("1", "admin")
+    localStorage.setItem("2", "123")
+    localStorage.setItem("admin", localStorage.getItem('1') + localStorage.getItem('2'))
+
+    localStorage.setItem("3", "kanglampu")
+    localStorage.setItem("4", "123")
+    localStorage.setItem("adminLampu", localStorage.getItem('3') + localStorage.getItem('4'))
+
+    localStorage.setItem("5", "kangtoggle")
+    localStorage.setItem("6", "123")
+    localStorage.setItem("adminToggle", localStorage.getItem('5') + localStorage.getItem('6'))
+
+    usernameList.innerText = localStorage.getItem('USERNAME')
+    passwordlist.innerText = localStorage.getItem('USERPASS')
+
+
+    function btnShowReg() {
+        if (localStorage.getItem('USER')) {
+            alert('Maaf kami hanya Melayani 1(satu) orang pendaftar, silahkan "reset akun" atau hubungi admin untuk info selanjutnya')
+            location.reload();
+        } else {
+            list.style.display = "none"
+            alert('Silahkan masukan Data dan Password')
+            btnLogin.style.display = "none"
+            btnRegister.style.display = "block"
+
+            txtLogin.style.display = "block"
+            txtRegist.style.display = "none"
+            txtReset.style.display = "none"
+        }
+    }
+
+    function btnShowLogin() {
+        list.style.display = "flex"
+        btnLogin.style.display = "block"
+        btnRegister.style.display = "none"
+
+        txtRegist.style.display = "block"
+        txtReset.style.display = "block"
+        txtLogin.style.display = "none"
+        alert('Silahkan masukan Data dan Password')
+    }
+
+    function regist() {
+        
+        if (inputname.value != '' && inputpass.value != '') {
+            localStorage.setItem("USERNAME", (inputname.value))
+            localStorage.setItem("USERPASS", (inputpass.value))
+            localStorage.setItem("USER", (inputname.value + inputpass.value))
+            alert("Berhasil !")
+            location.reload();
+        } else {
+            alert("Lengkapi data.")
+        }
+    }
+
+    function login() {
+        loginstyl.style.display = "none"
+        registerstyl.style.display = "none"
+        a.style.display = "none"
+        b.style.display = "none"
+        c.style.display = "none"
+        d.style.display = "none"
+        btnLogout.style.display = "block"
+
+        if (inputname.value + inputpass.value == localStorage.getItem('USER')) {
+            alert("Berhasil !")
+            a.style.display = "block"
+
+            list.style.display = "none"
+            a.innerText = `Hallo ${localStorage.getItem('USERNAME')} !`
+
+            localStorage.setItem('currentuser', localStorage.getItem('USER'))
+        } else if (inputname.value + inputpass.value == localStorage.getItem('admin')) {
+            alert("Berhasil !")
+
+            d.style.display = "block"
+
+            list.style.display = "none"
+            localStorage.setItem('currentuser', localStorage.getItem('admin'))
+        } else if (inputname.value + inputpass.value == localStorage.getItem('adminLampu')) {
+            alert("Berhasil !")
+
+            b.style.display = "block"
+
+            list.style.display = "none"
+            localStorage.setItem('currentuser', localStorage.getItem('adminLampu'))
+        } else if (inputname.value + inputpass.value == localStorage.getItem('adminToggle')) {
+            alert("Berhasil !")
+
+            c.style.display = "block"
+
+            list.style.display = "none"
+            localStorage.setItem('currentuser', localStorage.getItem('adminToggle'))
+        } else {
+            alert("salah")
+            loginstyl.style.display = "flex"
+            registerstyl.style.display = "flex"
+
+            btnLogout.style.display = "none"
+
+            list.style.display = "flex"
+        }
+    }
+
+    if (localStorage.getItem('currentuser')) {
+        loginstyl.style.display = "none"
+        registerstyl.style.display = "none"
+        a.style.display = "none"
+        b.style.display = "none"
+        c.style.display = "none"
+        d.style.display = "none"
+        btnLogout.style.display = "block"
+        list.style.display = "none"
+    }
+
+    if (localStorage.getItem('currentuser') == localStorage.getItem('USER') && localStorage.getItem('currentuser') != null) {
+        // alert("Berhasil !")
+        a.style.display = "block"
+        a.innerText = `Hallo ${localStorage.getItem('USERNAME')} !`
+
+    } else if (localStorage.getItem('currentuser') == localStorage.getItem('admin')) {
+        // alert("Berhasil ! 2")
+        d.style.display = "block"
+
+    } else if (localStorage.getItem('currentuser') == localStorage.getItem('adminLampu')) {
+        // alert("Berhasil ! 3")
+        b.style.display = "block"
+
+    } else if (localStorage.getItem('currentuser') == localStorage.getItem('adminToggle')) {
+        // alert("Berhasil ! 4")
+        c.style.display = "block"
+
+    } else {
+        loginstyl.style.display = "flex"
+        registerstyl.style.display = "flex"
+    }
+
+
+    function logout() {
+        if (localStorage.getItem('currentuser') == localStorage.getItem('USER') || localStorage.getItem('USER')) {
+            alert("Terima Kasih ! silahkan mendaftar kembali jika ingin mereset password pada device anda.")
+        }
+        localStorage.removeItem('currentuser')
+        location.reload()
+    }
+
+    function reset() {
+        alert("Terima Kasih ! silahkan mendaftar kembali.")
+        localStorage.clear()
+        location.reload()
+    }
+</script>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        #root {
+            background-color: springgreen;
+            height: 100vh;
+            text-align: center;
+            font-size: 3em;
+        }
+    </style>
+    <div id="root">
+        <input type="text" placeholder="Username" class="user">
+        <input type="password" placeholder="Password" class="userPass">
+        <button onclick="onLogin()" class="btnLogin"> login </button>
+
+        <button onclick="onLogout()" class="btnLogout"> logout </button>
+        <br>
+        <h1 id="admin"> Hallo Admin </h1>
+        <h1 id="user"> Hallo User </h1>
+    </div>
+    <script type="application/javascript">
+        let un = document.querySelector(".user")
+        // uc.addEventListener('click',onLogin)
+        let up = document.querySelector(".userPass")
+        let btnlogin = document.querySelector(".btnLogin")
+        let btnlogout = document.querySelector(".btnLogout")
+
+        let admin = document.getElementById("admin")
+        let user = document.getElementById("user")
+
+        admin.style.display = "none"
+        user.style.display = "none"
+        btnlogout.style.display = "none"
+
+        function onLogin() {
+            console.log("Tombol login di klik")
+            // console.log(uc.value)
+            // console.log(up.value)
+            localStorage.setItem("username", un.value);
+
+            if (un.value == "admin" && up.value == "123") {
+                alert("Anda adalah Admin");
+                localStorage.setItem('role', 'admin')
+                user.style.display = "none"
+                admin.style.display = "block"
+
+
+                un.style.display = "none"
+                up.style.display = "none"
+                btnlogin.style.display = 'block'
+
+            } else {
+                alert("User Biasa");
+                localStorage.setItem('role', 'user')
+                admin.style.display = "none"
+                user.style.display = "block"
+
+
+                un.style.display = "none"
+                up.style.display = "none"
+                btnlogin.style.display = 'none'
+
+                btnlogout.style.display = 'block'
+            }
+        }
+
+        if (localStorage.getItem('username')) {
+            un.style.display = "none"
+            up.style.display = "none"
+            btnlogin.style.display = 'none'
+            btnlogout.style.display = 'block'
+            if (localStorage.getItem('role') == "admin") {
+                user.style.display = "none"
+                admin.style.display = "block"
+            } else if (localStorage.getItem('role') == "user") {
+                user.style.display = "block"
+                admin.style.display = "none"
+            } else {
+                user.style.display = "none"
+                admin.style.display = "none"
+            }
+        }
+
+        function onLogout() {
+            alert("Terima Kasih !, silahkan mendaftar kembali jika ingin menggunakan layanan kami pada device anda.")
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>
